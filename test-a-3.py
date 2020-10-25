@@ -1,3 +1,4 @@
+import sys
 testCases = [
     'Please convert 0I minimally',
     'Please convert ABAA minimally',  # no
@@ -21,7 +22,7 @@ def is_type(data_input, data_type):
     return data_input in data_type
 
 
-def impossible_alert(data_input):
+def impossible_alert(data_input='none'):
     print("Hey, ask me something that's not impossible to do!")
 
 
@@ -70,19 +71,24 @@ def get_element_occurrence(data_input, ele):
 
 def occurrences_pending(occurrences):
     if len(occurrences) >= 4:
-        return False
+        impossible_alert()
+        # sys.exit()
+        # return False
     elif len(occurrences) == 3:
         if occurrences[1] - occurrences[0] == 1:
             if occurrences[2] - occurrences[1] == 1:
                 return True
             elif occurrences[2] - occurrences[1] == 2:
-                return False
+                impossible_alert()
+                # sys.exit()
+                # return False
         else:
             return True
 
     elif len(occurrences) == 2:
         if occurrences[1] - occurrences[0] > 2:
-            return False
+            impossible_alert()
+            # sys.exit()
         else:
             return True
     else:
@@ -91,17 +97,7 @@ def occurrences_pending(occurrences):
 
 
 def complex_new_dict(data_input):
-    new_dict = []
-    pos = 0
-
-    reversed_input = data_input[::-1]
-
-    pending_pos = reversed_input[pos]
-
-    loop_time = len(reversed_input)
-
-    res = reversed_input[pos + 1:]
-    # print(res)
+    print('generate dict', data_input)
 
 
 def get_occurrence_pending_list(data_input):
@@ -119,22 +115,10 @@ def get_occurrence_pending_list(data_input):
     return occurrences_pending_list
 
 
-
 def get_minimal_dict(data_input):
-    occurrences_pending_list = get_occurrence_pending_list(data_input)
+    get_occurrence_pending_list(data_input)
 
-
-    # print('is valid roma ', data_input, occurrences_pending_result)
-    # if(occurences_pending(occurances)):
-    #    if(dict_min_len > 1):
-    #        return complex_new_dict(input)
-    #    else:
-    #        # simple IIII or XXX case
-    #        return unique_char[0]
-    # else:
-    #    return False
-    ## for i in range(0,len(occurances)):
-    ##
+    return complex_new_dict(data_input)
 
 
 def minimally_operation(test_input, operations=None):
@@ -153,7 +137,7 @@ def minimally_operation(test_input, operations=None):
     # operations[operation_code](test_input,[])
 
 
-for i in input_cases[1:3]:
+for i in input_cases[4:6]:
     minimally_operation(i)
 
 # hybrid_input(test_input);
