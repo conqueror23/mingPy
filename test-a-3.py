@@ -61,19 +61,17 @@ def get_element_occurency(input,ele):
     return occurances
 
 def occurences_pending (occurances):
-
-    if(len(occurances)> 2):
+    if(len(occurances)>=4):
+        return False
+    elif(len(occurances)> 2 and len(occurances)<4):
 
         dup = 0;
         pos = 0;
+        temp = 0;
 
-        for i in (0,len(occurances)-1): 
-            if(i == 0):
+        for i in range(0,len(occurances)):
 
-                print('filter out abaa')
-            else:
-                # normal roman strings
-                break
+            print('i here',i)
 
     elif( len(occurances)==2 ):
         if(occurances[1]- occurances[0]>2):
@@ -103,17 +101,27 @@ def complex_new_dict(input):
     res = reversed_input[pos+1:]
         # print(res)
 
+def get_occurance_pending_list (input):
 
-def get_minimal_dict(input):
-    # step 1 get unique characters which is potential dict elements
     unique_char = get_dict_element(input)
     # step 2 pending if characters can be convert to dictionary
     dict_len = len(unique_char)
-    
+
+    occurences_pending_list=[]
+
     for i in unique_char:
+
         occurances = get_element_occurency(input[::-1],i)
-        is_valid_roman = occurences_pending(occurances)
-        print('is valid roma ',input,is_valid_roman)
+
+        occurences_pending_list.append(occurences_pending(occurances))
+
+    return  occurences_pending_list 
+
+def get_minimal_dict(input):
+
+    occurences_pending_list = get_occurance_pending_list(input)
+
+    print('is valid roma ',input,occurences_pending_list)
         #if(occurences_pending(occurances)):
         #    if(dict_len > 1):
         #        return complex_new_dict(input)
