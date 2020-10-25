@@ -62,15 +62,27 @@ def get_element_occurency(input,ele):
 
 def occurences_pending (occurances):
 
-    dup =0
-    invalid = False
+    if(len(occurances)> 2):
 
-    for i in (0,len(occurances)-1):
-        if(occurances[i+1]== occurances[i]):
-            dup+=1
-            break
+        dup = 0;
+        pos = 0;
+
+        for i in (0,len(occurances)-1): 
+            if(i == 0):
+
+                print('filter out abaa')
+            else:
+                # normal roman strings
+                break
+
+    elif( len(occurances)==2 ):
+        if(occurances[1]- occurances[0]>2):
+            return False
         else:
-            break
+            return True
+    else:
+        #when there is only one occurence
+        return True
 
     if(dup >2 and not invalid ):
         return False
@@ -89,13 +101,6 @@ def complex_new_dict(input):
     loop_time = len(reversed_input)
 
     res = reversed_input[pos+1:]
-
-#     for i in range(0,loop_time-1):
-#         if(res[i] == pending_pos):
-#             min = res[]
-#         else:
-#             new_dict.append(pending_pos)
-
         # print(res)
 
 
@@ -107,8 +112,8 @@ def get_minimal_dict(input):
     
     for i in unique_char:
         occurances = get_element_occurency(input[::-1],i)
-        print(occurances)
-        occurences_pending(occurances)
+        is_valid_roman = occurences_pending(occurances)
+        print('is valid roma ',input,is_valid_roman)
         #if(occurences_pending(occurances)):
         #    if(dict_len > 1):
         #        return complex_new_dict(input)
@@ -125,6 +130,9 @@ def minimally_operation(test_input):
     operations=[impossible_alert,to_roman,to_arabic_with_dict];
     if(operation_code == 2):
         new_dict = get_minimal_dict(test_input)
+        operations[operation_code](test_input,new_dict)
+    else:
+        opertations[operation_code](test_input)
 
     # operations[operation_code](test_input,[])
 
