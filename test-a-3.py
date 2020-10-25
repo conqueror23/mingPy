@@ -60,35 +60,65 @@ def get_element_occurency(input,ele):
 
     return occurances
 
-def pending_occurances(ocu):
-        for i in range(0,len(ocu)-1):
-            if(ocu[i+1]-ocu[i]>2):
-                print('invalid ocu',ocu)
-                return False
+def occurences_pending (occurances):
+
+    dup =0
+    invalid = False
+
+    for i in (0,len(occurances)-1):
+        if(occurances[i+1]== occurances[i]):
+            dup+=1
+            break
+        else:
+            break
+
+    if(dup >2 and not invalid ):
+        return False
+    else:
+        return True
+
+def complex_new_dict(input):
+
+    new_dict = []
+    pos = 0
+
+    reversed_input = input[::-1]
+
+    pending_pos = reversed_input[pos]
+
+    loop_time = len(reversed_input)
+
+    res = reversed_input[pos+1:]
+
+#     for i in range(0,loop_time-1):
+#         if(res[i] == pending_pos):
+#             min = res[]
+#         else:
+#             new_dict.append(pending_pos)
+
+        # print(res)
 
 
 def get_minimal_dict(input):
     # step 1 get unique characters which is potential dict elements
     unique_char = get_dict_element(input)
     # step 2 pending if characters can be convert to dictionary
-    input_len = len(unique_char)
-
-    if(input_len > 1):
-        for i in unique_char:
-            occurances = get_element_occurency(input,i)
-            if(len(occurances)>4):
-                print('invalid transfroms')
-            else:
-                print('pending input',input,occurances)
-                pending_occurances(occurances)
-            
-
-
-        
-    else:
-        # simple IIII or XXX case
-        return unique_char[0]
-
+    dict_len = len(unique_char)
+    
+    for i in unique_char:
+        occurances = get_element_occurency(input[::-1],i)
+        print(occurances)
+        occurences_pending(occurances)
+        #if(occurences_pending(occurances)):
+        #    if(dict_len > 1):
+        #        return complex_new_dict(input)
+        #    else:
+        #        # simple IIII or XXX case
+        #        return unique_char[0]
+        #else:
+        #    return False
+        ## for i in range(0,len(occurances)):
+        ##
 
 def minimally_operation(test_input):
     operation_code = get_operation_code(test_input);
@@ -98,7 +128,7 @@ def minimally_operation(test_input):
 
     # operations[operation_code](test_input,[])
 
-for i in input_cases[1:4]:
+for i in input_cases[1:3]:
     minimally_operation(i)
 
 # hybrid_input(test_input);
