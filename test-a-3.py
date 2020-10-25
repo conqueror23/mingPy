@@ -21,11 +21,11 @@ def is_type(data_input, data_type):
     return data_input in data_type
 
 
-def impossible_alert():
+def impossible_alert(data_input):
     print("Hey, ask me something that's not impossible to do!")
 
 
-def to_roman():
+def to_roman(data_input):
     print('converting arabic to roman')
 
 
@@ -72,17 +72,13 @@ def occurrences_pending(occurrences):
     if len(occurrences) >= 4:
         return False
     elif len(occurrences) == 3:
-
-        # only works out here
-        # aaa
-        # aaba no
-        # abaa yes
-        # process
-        dup = 0;
-        pos = 0;
-        temp = 0;
-        for i in range(0, len(occurrences)):
-            print('i here', i)
+        if occurrences[1] - occurrences[0] == 1:
+            if occurrences[2] - occurrences[1] == 1:
+                return True
+            elif occurrences[2] - occurrences[1] == 2:
+                return False
+        else:
+            return True
 
     elif len(occurrences) == 2:
         if occurrences[1] - occurrences[0] > 2:
@@ -108,25 +104,27 @@ def complex_new_dict(data_input):
     # print(res)
 
 
-def get_occurrence_pending_list(input):
-    unique_char = get_dict_element(input)
+def get_occurrence_pending_list(data_input):
+    unique_char = get_dict_element(data_input)
     # step 2 pending if characters can be convert to dictionary
     dict_min_len = len(unique_char)
 
     occurrences_pending_list = []
 
-    for i in unique_char:
-        occurrences = get_element_occurrence(input[::-1], i)
+    for char in unique_char:
+        occurrences = get_element_occurrence(data_input[::-1], char)
 
         occurrences_pending_list.append(occurrences_pending(occurrences))
 
     return occurrences_pending_list
 
 
-def get_minimal_dict(input):
-    occurrences_pending_list = get_occurrence_pending_list(input)
 
-    print('is valid roma ', input, occurrences_pending_list)
+def get_minimal_dict(data_input):
+    occurrences_pending_list = get_occurrence_pending_list(data_input)
+
+
+    # print('is valid roma ', data_input, occurrences_pending_result)
     # if(occurences_pending(occurances)):
     #    if(dict_min_len > 1):
     #        return complex_new_dict(input)
@@ -140,11 +138,15 @@ def get_minimal_dict(input):
 
 
 def minimally_operation(test_input, operations=None):
-    operation_code = get_operation_code(test_input);
-    operations = [impossible_alert, to_roman, to_arabic_with_dict];
+    operation_code = get_operation_code(test_input)
+    operations = [impossible_alert, to_roman, to_arabic_with_dict]
     if operation_code == 2:
         new_dict = get_minimal_dict(test_input)
-        operations[operation_code](test_input, new_dict)
+
+        if new_dict:
+            operations[operation_code](test_input, new_dict)
+        else:
+            return False
     else:
         operations[operation_code](test_input)
 
