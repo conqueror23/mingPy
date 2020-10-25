@@ -63,12 +63,16 @@ def get_element_occurency(input,ele):
 def occurences_pending (occurances):
     if(len(occurances)>=4):
         return False
-    elif(len(occurances)> 2 and len(occurances)<4):
+    elif(len(occurances)==3):
 
+    #only works out here
+    #aaa
+    # aaba
+
+    #process 
         dup = 0;
         pos = 0;
         temp = 0;
-
         for i in range(0,len(occurances)):
 
             print('i here',i)
